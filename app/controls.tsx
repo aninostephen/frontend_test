@@ -1,9 +1,14 @@
 import Select from "react-select";
 
-const Controls = () => {
+interface ControlsProps {
+  filterField: () => void;
+  filterDirection: (direction: string) => void; // Example: filterDirection takes a string parameter
+}
+
+const Controls: React.FC<ControlsProps> = ({filterField, filterDirection}) => {
   const fieldOptions = [
     { label: "Name", value: "name" },
-    { label: "Company", value: "company" },
+    { label: "Company", value: "company.name" },
     { label: "Email", value: "email" },
   ];
   const directionOptions = [
@@ -17,7 +22,7 @@ const Controls = () => {
         <label htmlFor="sort-field" className="label">
           Sort Field
         </label>
-        <Select options={fieldOptions} inputId="sort-field" className="input" />
+        <Select options={fieldOptions} onChange={filterField} inputId="sort-field" className="input" />
       </div>
       <div className="form-group group">
         <label htmlFor="sort-direction" className="label">
@@ -27,6 +32,7 @@ const Controls = () => {
           options={directionOptions}
           inputId="sort-direction"
           className="input"
+          onChange={filterDirection}
         />
       </div>
     </div>
