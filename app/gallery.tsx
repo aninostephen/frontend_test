@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "boring-avatars";
 import {
   FaRegCircleXmark,
@@ -34,6 +34,10 @@ const Gallery = ({ users }: GalleryProps) => {
     setSelectedUser(null);
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    setUsersList(users)
+  }, [users]);
 
   return (
     <div className="user-gallery">
