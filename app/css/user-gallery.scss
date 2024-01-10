@@ -7,6 +7,41 @@
     grid-template-rows: auto;
     grid-gap: 16px;
 
+    @media screen and (max-width: 700px) {
+      display: inline;
+
+      > .item{
+        margin-bottom: 19px;
+
+        > .body{
+          display: block;
+          float: left;
+        }
+      }
+    }
+
+    @media (min-width: 701px) and (max-width: 1120px) {
+      display: block;
+
+      > .item{
+        display: inline-block;
+        width: 42%;
+        float: left;
+        margin-right: 15px;
+        margin-bottom: 24px;
+
+        > .body{
+          display: block;
+          float: left;
+        }
+
+        > .info {
+          margin-left: 111px;
+          margin-top: 29px;
+        }
+      }
+    }
+
     @media screen and (max-width: 480px) {
       grid-template-columns: 1fr;
     }

@@ -202,12 +202,21 @@
     );
     z-index: 1;
   }
+
+  .main {
+    padding: 1.5rem;
+  }
 }
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     grid-template-columns: repeat(2, 50%);
+  }
+
+  .main {
+    width: 100%;
+    padding: 1.5rem;
   }
 }
 
