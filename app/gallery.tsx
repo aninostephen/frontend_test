@@ -19,6 +19,8 @@ export type GalleryProps = {
 };
 const Gallery = ({ users }: GalleryProps) => {
   const [usersList, setUsersList] = useState(users);
+  const [sortFieldValue, setSortFieldValue] = useState('');
+  const [sortDirectionValue, setSortDirectionFieldValue] = useState('ascending');
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -36,11 +38,45 @@ const Gallery = ({ users }: GalleryProps) => {
     setIsModalOpen(false);
   };
 
+  const getProperty = (object, path) => {
+    const properties = path.split('.');
+    return properties.reduce((acc, prop) => acc && acc[prop], object);
+  };
+
+  const sortData = (list, value) => {
+    return [...list].sort((a, b) => {
+      const aValue = getProperty(a, value);
+      const bValue = getProperty(b, value);
+
+      if (aValue < bValue) return -1;
+      if (aValue > bValue) return 1;
+      return 0;
+    });
+  }
+
+  const filterField = (val) => {
+    const sortedArray = sortData(usersList, val.value)
+    const sortUserList = [...sortedArray].sort((a, b) => (sortDirectionValue === 'ascending' ? 1 : -1));
+
+    setSortFieldValue(val.value);
+    setUsersList(sortUserList);
+  };
+
+  const filterDirection = (order) => {
+    const sortedArray = sortData(usersList, sortFieldValue)
+    const sortUserList = [...sortedArray].sort((a, b) => (order.value === 'ascending' ? 1 : -1));
+    setSortDirectionFieldValue(order.value);
+    setUsersList(sortUserList);
+  };
+
   return (
     <div className="user-gallery">
       <div className="heading">
         <h1 className="title">Users</h1>
-        <Controls />
+        <Controls
+          filterField={filterField}
+          filterDirection={filterDirection}
+        />
       </div>
       <div className="items">
         {usersList.map((user, index) => (
