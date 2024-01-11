@@ -59,6 +59,7 @@ const Gallery = ({ users }: GalleryProps) => {
             </div>
           </div>
         ))}
+
         <Modal isOpen={isModalOpen} onClose={handleModalClose}>
           <div className="user-panel">
             <div className="header">
